@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="{% static 'flashlearn/quizstyle.css' %}">
+    <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Londrina+Solid:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap">
+</head>
+
+<body>
+    <span class="back-btn">
+        <a href="{% url 'charactercard' %}">
+            <img src="{% static 'flashlearn/back.png' %}" alt="Back Button">
+        </a>
+    </span>
+
+    <span class="quiz-title">QUIZ</span>
+
+    <div class="quiz-content">
+        {% if selected_card %}
+        <div class="selected-card">
+            <img src="{{ selected_card.image_url }}" alt="{{ selected_card.name }}" style="width: 200px; height: 200px;">
+            <p class="text">{{ selected_card.name }}</p>
+            <p class="question">{{ selected_card.question }}</p>
+            
+        </div>
+        {% else %}
+        <div class="quiz-question">No card selected. Please go back and select a card.</div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+body {
+    background-image: url("teacherBG.jpg");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+}
+
+.card-box {
+    width: 600px;
+    height: 900px;
+    background-color: #272728;
+    border-radius: 10px;
+    opacity: 0.9;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    font-family: 'Londrina Solid', sans-serif;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.quiz-btn {
+    width: 300px;
+    height: 50px;
+    background-color: #E59C2F;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-family: 'Londrina Solid', sans-serif;
+    font-size: 40px;
+    color: black;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-bottom: 20px; 
+    display: block;
+    text-decoration: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.quiz-btn:hover {
+    background-color: #FFEE51;
+}
+
+.text{
+    color: white;
+}

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teachers Menu</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Londrina+Solid:wght@400;700&display=swap">
+    <link rel="stylesheet" href="{% static 'flashlearn/menustyle.css' %}">
+    <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Londrina+Solid:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Content -->
+    <a href="{% url 'home' %}" class="back-btn">
+        <img src="{% static 'flashlearn/back.png' %}" alt="back button">
+    </a>
+    
+    <div class="hanging-sign">
+        <img src="{% static 'flashlearn/hangingsign.png' %}" class="sign" alt="Hanging Sign">
+        <span class="choose">CHOOSE A TEACHER</span>
+
+        <!-- teacher cards button -->
+        <a href="{% url 'charactercard' %}" class="teacher-cards-btn">Teacher Cards<br>(Delete Later)</a>
+    </div>
+     <!-- Display teacher cards -->
+        {% for card in carddata %}
+        <div class="placeholder">
+            <a href="{% url 'charactercard' %}" class="teacher-card-link">
+                <div class="card">
+                    <img src="{{ card.image.url }}" alt="{{ card.name }}" style="width: 100px; height: 100px;">
+                    <div class="card-content">
+                        <p>{{ card.name }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}   
+</body>
+</html>

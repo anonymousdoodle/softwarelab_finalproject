@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Cards</title>
+    <link rel="stylesheet" href="{% static 'flashlearn/adminstyle.css' %}">
+    <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Londrina+Solid:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap">
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="navbar-logo-link">
+            <img src="{% static 'flashlearn/logotype.png' %}" alt="Flash Learn Logo" class="navbar-logo">
+        </a>
+        <div class="navbar-menu">
+            <ul>
+                <li>
+                    <a id="manage-content">Manage Content</a>
+                    <div class="dropdown-content" id="content-dropdown">
+                        <a href="{% url 'managequiz' %}">Quizzes</a>
+                        <a href="{% url 'managecharacters' %}">Characters</a>
+                        <a href="{% url 'managecards' %}">Cards</a>
+                    </div>
+                </li>
+                <li>
+                    <a id="manage-accounts">Manage Accounts</a>
+                    <div class="dropdown-content" id="accounts-dropdown">
+                        <a href="{% url 'managestudents' %}">Students</a>
+                        <a href="{% url 'manageteachers' %}">Teachers</a>
+                        <a href="{% url 'manageadmins' %}">Admins</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="managequiz-bg">
+        <div class="mng-box">
+            <div id="manage-label">Manage Content: Cards</div>
+            <div class="panel-box">
+                <div class="field-name">
+                    <div class="field-name-text">ID</div>
+                    <div class="field-name-text">Assigned Character</div>
+                    <div class="field-name-text">Question</div>
+                    <div class="field-name-text">Answer</div>
+                    <div class="field-name-text">Action</div>
+                </div>
+
+                <form id="update-form" method="post" enctype="multipart/form-data" action="{% url 'update_tcards' carddata.id %}">
+                    {% csrf_token %}
+                    <div class="field-name">ID</div>
+                    <div class="form-row">
+                        <input type="text" name="id" value="{{ carddata.id }}" readonly>
+                    </div>
+                    <div class="field-name">Card</div>
+                    <div class="form-row">
+                        <input type="file" id="image" name="image" accept="image/*">
+                    </div>
+                    <div class="field-name">Assigned Character</div>
+                    <div class="form-row">
+                        <input type="text" name="name" value="{{ carddata.name }}">
+                    </div>
+                    <div class="field-name">Question</div>
+                    <div class="form-row">
+                        <input type="text" name="question" value="{{ carddata.question }}">
+                    </div>
+                    <div class="field-name">Answer</div>
+                    <div class="form-row">
+                        <input type="text" name="answer" value="{{ carddata.answer }}">
+                    </div>
+                    <div class="form-row">
+                        <button type="submit" id="update-btn">Update</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#update-form').on('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            var imageInput = document.getElementById("image");
+            var file = imageInput.files[0];
+
+            if (file) {
+                var img = new Image();
+                img.src = URL.createObjectURL(file);
+
+                img.onload = function() {
+                    if (img.width < 200 || img.height < 200) {
+                        alert("Image must be at least 200x200 pixels.");
+                    } else {
+                        // Perform AJAX form submission
+                        var formData = new FormData($('#update-form')[0]);
+                        $.ajax({
+                            url: $('#update-form').attr('action'),
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+                                if (response.success) {
+                                    window.location.href = response.redirect_url;
+                                } else {
+                                    alert("Error: " + response.error);
+                                }
+                            },
+                            error: function(response) {
+                                alert("An error occurred. Please try again.");
+                            }
+                        });
+                    }
+                };
+            } else {
+                // If no new image is uploaded, perform AJAX form submission directly
+                var formData = new FormData($('#update-form')[0]);
+                $.ajax({
+                    url: $('#update-form').attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            window.location.href = response.redirect_url;
+                        } else {
+                            alert("Error: " + response.error);
+                        }
+                    },
+                    error: function(response) {
+                        alert("An error occurred. Please try again.");
+                    }
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>

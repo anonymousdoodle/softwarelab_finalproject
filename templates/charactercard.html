@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Card</title>
+    <link rel="stylesheet" href="{% static 'flashlearn/teachercardstyle.css' %}">
+    <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Londrina+Solid:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap">
+</head>
+
+<body>
+    <div class="card-box">
+        <span class="back-btn">
+            <a href="{% url 'teachermenu' %}">
+                <img src="{% static 'flashlearn/back.png' %}" alt="Back Button">
+            </a>
+        </span>
+        <div class="title">TEACHER'S CARDS</div>
+        
+        <!-- Display all teacher cards -->
+        <div class="cards-container">
+            {% for card in carddata %}
+            <div class="card">
+                <form method="post" action="{% url 'select_card' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="card_id" value="{{ card.id }}">
+                    <input type="image" src="{{ card.image.url }}" alt="{{ card.name }}" style="width: 200px; height: 200px;">
+                    <div class="card-content">
+                        <p class="text">{{ card.name }}</p>
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <a href="{% url 'quiz' %}" class="quiz-btn">QUIZ</a>
+    </div>
+</body>
+</html>

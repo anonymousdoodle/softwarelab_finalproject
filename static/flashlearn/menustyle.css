@@ -1,0 +1,36 @@
+
+body {
+    background-image: url("teacherBG.jpg");
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hanging-sign {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 100%;
+}
+
+.choose {
+    font-family: 'Londrina Solid', sans-serif;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    margin-top: 20px; /* Adjust as needed */
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000; /* Add stroke effect */
+}
+
